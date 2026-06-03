@@ -8,7 +8,6 @@ import {
   RefreshCcw,
   Scissors,
   Sparkles,
-  Stars,
   WandSparkles,
 } from "lucide-react";
 import { type ComponentType, type SVGProps, useState } from "react";
@@ -39,10 +38,10 @@ const emptyFields: GeneratorFields = {
 };
 
 const modeLabels: Record<Mode, string> = {
-  full: "sendable",
-  brainstorm: "bullets",
-  emojify: "punch-up",
-  variants: "4 takes",
+  full: "Sendable",
+  brainstorm: "Bullets",
+  emojify: "Punch Up",
+  variants: "4 Takes",
 };
 
 const iterationActions: Array<{
@@ -51,25 +50,25 @@ const iterationActions: Array<{
   request: string;
 }> = [
   {
-    label: "hornier",
+    label: "Hornier",
     icon: Flame,
     request:
       "Revise the current output to be hornier, more pun-dense, and more committed while keeping the logistics intact.",
   },
   {
-    label: "shorter",
+    label: "Shorter",
     icon: Scissors,
     request:
       "Revise the current output to be shorter and tighter while preserving the best jokes.",
   },
   {
-    label: "glitter",
+    label: "Gloss",
     icon: Sparkles,
     request:
       "Revise the current output with more emojis, more visual rhythm, and more chaotic group-chat texture.",
   },
   {
-    label: "reroll",
+    label: "Reroll",
     icon: RefreshCcw,
     request:
       "Rewrite the current output from a fresh angle with new puns and a stronger closing refrain.",
@@ -94,7 +93,7 @@ export function GeneratorApp() {
   async function generate(revisionRequest?: string) {
     setError("");
     setCopied(false);
-    setLoadingLabel(revisionRequest ? "remixing" : "hornifying");
+    setLoadingLabel(revisionRequest ? "Remixing" : "Hornifying");
 
     const payload: GenerateRequest = {
       mode,
@@ -137,228 +136,216 @@ export function GeneratorApp() {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground">
-      <div className="pointer-events-none fixed inset-0 opacity-70 [background-image:linear-gradient(90deg,rgba(255,255,255,.18)_1px,transparent_1px),linear-gradient(rgba(255,255,255,.18)_1px,transparent_1px)] [background-size:18px_18px]" />
-      <div className="pointer-events-none fixed inset-x-0 top-0 h-4 bg-[repeating-linear-gradient(90deg,#ff2bd6_0_28px,#00f0ff_28px_56px,#fff200_56px_84px,#62ff00_84px_112px)]" />
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <div className="soft-focus-bg" aria-hidden="true" />
+      <div className="pointer-events-none fixed inset-0 bg-black/20" />
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 pb-5 pt-7 sm:px-6 lg:px-8">
-        <header className="grid gap-4 border-4 border-black bg-[#fff200] p-3 shadow-[8px_8px_0_#000] sm:grid-cols-[1fr_auto] sm:items-end">
-          <div className="flex items-end gap-3">
-            <div className="grid size-16 shrink-0 place-items-center border-4 border-black bg-[#00f0ff] text-4xl shadow-[4px_4px_0_#ff2bd6]">
-              💦
-            </div>
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <div className="aqua-menubar flex h-8 items-center justify-between px-3 text-[13px] font-semibold text-black/80">
+          <div className="flex min-w-0 items-center gap-4">
+            <span className="font-black">Hornify</span>
+            <span className="hidden sm:inline">File</span>
+            <span className="hidden sm:inline">Edit</span>
+            <span className="hidden sm:inline">Special</span>
+          </div>
+          <span className="font-mono text-xs">💿 9:41 PM</span>
+        </div>
+
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
+          <header className="grid gap-5 rounded-[28px] border border-white/35 bg-black/20 p-5 text-white shadow-[0_26px_80px_rgba(0,0,0,.35)] backdrop-blur-xl sm:p-7 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="font-mono text-sm font-black uppercase text-[#0014ff]">
-                horny dot exe
+              <p className="mb-2 text-sm font-semibold text-white/80">
+                100% Horny Guarantee
               </p>
-              <h1 className="text-5xl font-black leading-none text-black sm:text-7xl">
+              <h1 className="font-serif text-6xl leading-none text-white drop-shadow-[0_3px_18px_rgba(0,0,0,.55)] sm:text-8xl">
                 Hornify
               </h1>
             </div>
-          </div>
-          <div className="grid grid-cols-4 gap-1 border-4 border-black bg-white p-1 text-center font-mono text-xl shadow-[4px_4px_0_#000]">
-            <span>🍑</span>
-            <span>💿</span>
-            <span>🫦</span>
-            <span>✨</span>
-          </div>
-        </header>
+            <button
+              type="button"
+              disabled={!contextDump.trim() || Boolean(loadingLabel)}
+              onClick={() => generate()}
+              className="aqua-button inline-flex h-20 w-full items-center justify-center gap-3 rounded-full px-8 text-2xl font-black text-white shadow-[0_18px_38px_rgba(0,0,0,.36)] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-55 sm:w-[360px]"
+            >
+              {loadingLabel ? (
+                <Loader2 className="size-6 animate-spin" aria-hidden="true" />
+              ) : (
+                <WandSparkles className="size-6" aria-hidden="true" />
+              )}
+              {loadingLabel || "Hornify"}
+            </button>
+          </header>
 
-        <div className="mt-4 overflow-hidden border-4 border-black bg-black text-white shadow-[8px_8px_0_#ff2bd6]">
-          <div className="flex gap-8 whitespace-nowrap py-2 font-mono text-sm font-black uppercase">
-            <span className="animate-[ticker_18s_linear_infinite]">
-              HOT NOTES IN HOTTER TEXT ::: TIP OFF ::: LOAD JOKES ::: PRESS
-              BUTTON ::: COPY INTO CHAT ::: HOT NOTES IN HOTTER TEXT ::: TIP OFF
-              ::: LOAD JOKES ::: PRESS BUTTON ::: COPY INTO CHAT :::
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-5 grid flex-1 gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,.95fr)]">
-          <section className="flex min-h-[680px] flex-col border-4 border-black bg-[#ff7ac8] p-3 shadow-[8px_8px_0_#0014ff]">
-            <div className="mb-3 flex items-center justify-between gap-3 border-4 border-black bg-[#c8ff00] px-3 py-2 text-black">
-              <div className="flex items-center gap-2 font-mono text-sm font-black uppercase">
-                <Stars className="size-4" aria-hidden="true" />
-                Context Dump
-              </div>
-              <div className="flex gap-1" aria-hidden="true">
-                <span className="size-3 border-2 border-black bg-[#ff2bd6]" />
-                <span className="size-3 border-2 border-black bg-[#00f0ff]" />
-                <span className="size-3 border-2 border-black bg-[#fff200]" />
-              </div>
-            </div>
-
-            <textarea
-              aria-label="Context dump"
-              value={contextDump}
-              onChange={(event) => setContextDump(event.target.value)}
-              placeholder={`dump everything here:
+          <div className="grid flex-1 gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,.95fr)]">
+            <MacWindow title="Context Dump" className="min-h-[650px]">
+              <textarea
+                aria-label="Context dump"
+                value={contextDump}
+                onChange={(event) => setContextDump(event.target.value)}
+                placeholder={`dump everything here:
 event / time / place
 teams / people / characters
 food / drinks
 inside jokes
 lines you already like
 things to avoid`}
-              className="min-h-[420px] flex-1 resize-y border-4 border-black bg-white p-4 font-mono text-base font-bold leading-7 text-black shadow-[inset_5px_5px_0_rgba(0,0,0,.18)] outline-none placeholder:text-black/45 focus:bg-[#fffde8] focus:ring-4 focus:ring-[#00f0ff]"
-            />
+                className="min-h-[390px] flex-1 resize-y rounded-b-[18px] border-x border-b border-black/20 bg-white/82 p-5 font-mono text-base leading-7 text-[#191924] shadow-[inset_0_2px_18px_rgba(40,25,50,.16)] outline-none placeholder:text-[#5d6474]/70 focus:bg-white focus:ring-4 focus:ring-[#28b7f7]/35"
+              />
 
-            <div className="mt-3 grid gap-3 border-4 border-black bg-white p-3 text-black">
-              <div className="grid gap-2 lg:grid-cols-[1.2fr_1fr_1fr]">
-                <DialGroup
-                  active={mode}
-                  items={MODES}
-                  labels={modeLabels}
-                  title="mode"
-                  onChange={setMode}
-                  tone="blue"
-                />
-                <DialGroup
-                  active={intensity}
-                  items={INTENSITIES}
-                  title="heat"
-                  onChange={setIntensity}
-                  tone="pink"
-                />
-                <DialGroup
-                  active={length}
-                  items={LENGTHS}
-                  title="size"
-                  onChange={setLength}
-                  tone="green"
-                />
-              </div>
+              <div className="mt-4 grid gap-4 rounded-[20px] border border-white/60 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] backdrop-blur-xl">
+                <div className="grid gap-3 lg:grid-cols-[1.2fr_1fr_1fr]">
+                  <PillGroup
+                    active={mode}
+                    items={MODES}
+                    labels={modeLabels}
+                    title="Mode"
+                    onChange={setMode}
+                  />
+                  <PillGroup
+                    active={intensity}
+                    items={INTENSITIES}
+                    title="Heat"
+                    onChange={setIntensity}
+                  />
+                  <PillGroup
+                    active={length}
+                    items={LENGTHS}
+                    title="Size"
+                    onChange={setLength}
+                  />
+                </div>
 
-              <div className="flex flex-col gap-3 border-t-4 border-black pt-3 sm:flex-row sm:items-center sm:justify-between">
-                <label className="flex items-center gap-2 font-mono text-sm font-black uppercase">
+                <label className="flex items-center gap-3 text-sm font-semibold text-[#242332]">
                   <input
                     type="checkbox"
                     checked={includeLogistics}
                     onChange={(event) => setIncludeLogistics(event.target.checked)}
-                    className="size-5 accent-[#ff2bd6]"
+                    className="size-5 accent-[#1eacdf]"
                   />
-                  keep logistics visible
+                  Keep logistics visible
                 </label>
-                <button
-                  type="button"
-                  disabled={!contextDump.trim() || Boolean(loadingLabel)}
-                  onClick={() => generate()}
-                  className="inline-flex h-14 items-center justify-center gap-2 border-4 border-black bg-[#fff200] px-6 text-xl font-black uppercase text-black shadow-[5px_5px_0_#000] transition hover:-translate-y-0.5 hover:bg-[#c8ff00] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45"
-                >
-                  {loadingLabel ? (
-                    <Loader2 className="size-5 animate-spin" aria-hidden="true" />
-                  ) : (
-                    <WandSparkles className="size-5" aria-hidden="true" />
-                  )}
-                  {loadingLabel || "hornify"}
-                </button>
               </div>
-            </div>
-          </section>
+            </MacWindow>
 
-          <section className="flex min-h-[680px] flex-col border-4 border-black bg-[#00f0ff] p-3 shadow-[8px_8px_0_#c8ff00]">
-            <div className="mb-3 flex flex-col gap-2 border-4 border-black bg-[#0014ff] p-3 text-white">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 font-mono text-sm font-black uppercase">
-                  <MessageSquareText
-                    className="size-4 text-[#fff200]"
-                    aria-hidden="true"
-                  />
-                  Outbox
-                </div>
+            <MacWindow title="Outbox" className="min-h-[650px]">
+              <div className="mb-4 grid gap-2 rounded-[18px] border border-white/55 bg-white/45 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.85)] backdrop-blur-xl sm:grid-cols-[auto_1fr] sm:items-center">
                 <button
                   type="button"
                   disabled={!output}
                   onClick={copyOutput}
-                  className="inline-flex h-9 items-center gap-2 border-2 border-white bg-[#ff2bd6] px-3 text-sm font-black uppercase text-white transition hover:bg-[#fff200] hover:text-black disabled:cursor-not-allowed disabled:opacity-40"
+                  className="aqua-mini-button inline-flex h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   <Clipboard className="size-4" aria-hidden="true" />
-                  {copied ? "copied" : "copy"}
+                  {copied ? "Copied" : "Copy"}
                 </button>
-              </div>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {iterationActions.map((action) => {
-                  const Icon = action.icon;
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  {iterationActions.map((action) => {
+                    const Icon = action.icon;
 
-                  return (
-                    <button
-                      key={action.label}
-                      type="button"
-                      disabled={!output || Boolean(loadingLabel)}
-                      onClick={() => generate(action.request)}
-                      className="inline-flex h-10 items-center justify-center gap-1 border-2 border-white bg-black px-2 text-xs font-black uppercase transition hover:bg-[#c8ff00] hover:text-black disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      <Icon className="size-3.5" aria-hidden="true" />
-                      {action.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {error ? (
-              <div className="mb-3 border-4 border-black bg-[#fff200] p-3 font-mono text-sm font-black text-black">
-                {error}
-              </div>
-            ) : null}
-
-            <div className="flex flex-1 border-4 border-black bg-white text-black shadow-[inset_5px_5px_0_rgba(0,0,0,.18)]">
-              {output ? (
-                <pre className="min-h-full w-full whitespace-pre-wrap break-words p-4 font-sans text-lg font-semibold leading-8">
-                  {output}
-                </pre>
-              ) : (
-                <div className="grid w-full place-items-center p-6 text-center">
-                  <div className="max-w-sm border-4 border-black bg-[#fff200] p-5 shadow-[6px_6px_0_#ff2bd6]">
-                    <p className="text-6xl" aria-hidden="true">
-                      💿💋📟
-                    </p>
-                    <p className="mt-3 font-mono text-lg font-black uppercase">
-                      Awaiting corruption
-                    </p>
-                  </div>
+                    return (
+                      <button
+                        key={action.label}
+                        type="button"
+                        disabled={!output || Boolean(loadingLabel)}
+                        onClick={() => generate(action.request)}
+                        className="inline-flex h-10 items-center justify-center gap-1 rounded-full border border-white/65 bg-white/60 px-2 text-xs font-bold text-[#242332] shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_5px_14px_rgba(0,0,0,.12)] backdrop-blur transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-45"
+                      >
+                        <Icon className="size-3.5" aria-hidden="true" />
+                        {action.label}
+                      </button>
+                    );
+                  })}
                 </div>
-              )}
-            </div>
-          </section>
+              </div>
+
+              {error ? (
+                <div className="mb-4 rounded-[18px] border border-[#a77213]/25 bg-[#fff2b8]/90 p-3 text-sm font-semibold text-[#5a3b00] shadow-[0_10px_24px_rgba(0,0,0,.12)]">
+                  {error}
+                </div>
+              ) : null}
+
+              <div className="flex flex-1 rounded-b-[18px] border-x border-b border-black/20 bg-white/84 text-[#191924] shadow-[inset_0_2px_18px_rgba(40,25,50,.16)]">
+                {output ? (
+                  <pre className="min-h-full w-full whitespace-pre-wrap break-words p-5 font-sans text-lg leading-8">
+                    {output}
+                  </pre>
+                ) : (
+                  <div className="grid w-full place-items-center p-6 text-center">
+                    <div className="rounded-[24px] border border-white/70 bg-white/58 p-6 text-[#2b2b3a] shadow-[0_18px_40px_rgba(0,0,0,.16)] backdrop-blur-xl">
+                      <MessageSquareText
+                        className="mx-auto size-10 text-[#1eacdf]"
+                        aria-hidden="true"
+                      />
+                      <p className="mt-3 font-serif text-3xl">Awaiting corruption</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </MacWindow>
+          </div>
         </div>
       </div>
     </main>
   );
 }
 
-function DialGroup<T extends string>({
+function MacWindow({
+  children,
+  className,
+  title,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  title: string;
+}) {
+  return (
+    <section
+      className={clsx(
+        "mac-window flex flex-col rounded-[24px] border border-white/45 p-3 shadow-[0_28px_70px_rgba(0,0,0,.32)] backdrop-blur-xl",
+        className,
+      )}
+    >
+      <div className="mac-titlebar flex h-9 items-center justify-between rounded-t-[18px] border border-white/55 px-3 text-sm font-semibold text-[#242332] shadow-[inset_0_1px_0_rgba(255,255,255,.86)]">
+        <div className="flex items-center gap-2" aria-hidden="true">
+          <span className="size-3 rounded-full border border-[#9b2f29]/35 bg-[#ff5f57]" />
+          <span className="size-3 rounded-full border border-[#996915]/35 bg-[#ffbd2e]" />
+          <span className="size-3 rounded-full border border-[#1b7d31]/35 bg-[#28c840]" />
+        </div>
+        <span>{title}</span>
+        <span className="w-14" aria-hidden="true" />
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function PillGroup<T extends string>({
   active,
   items,
   labels,
   title,
-  tone,
   onChange,
 }: {
   active: T;
   items: readonly T[];
   labels?: Partial<Record<T, string>>;
   title: string;
-  tone: "blue" | "green" | "pink";
   onChange: (item: T) => void;
 }) {
-  const activeColor = {
-    blue: "bg-[#0014ff] text-white",
-    green: "bg-[#c8ff00] text-black",
-    pink: "bg-[#ff2bd6] text-white",
-  }[tone];
-
   return (
-    <div className="grid gap-1">
-      <span className="font-mono text-xs font-black uppercase">{title}</span>
-      <div className="grid grid-cols-2 gap-1">
+    <div className="grid gap-2">
+      <span className="text-xs font-bold text-[#4e5160]">{title}</span>
+      <div className="grid grid-cols-2 gap-1.5">
         {items.map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => onChange(item)}
             className={clsx(
-              "min-h-10 border-2 border-black px-2 text-sm font-black uppercase transition hover:-translate-y-0.5",
-              active === item ? activeColor : "bg-white text-black",
+              "min-h-10 rounded-full border px-3 text-sm font-bold shadow-[inset_0_1px_0_rgba(255,255,255,.85),0_4px_12px_rgba(0,0,0,.1)] transition",
+              active === item
+                ? "aqua-mini-button border-white/55 text-white"
+                : "border-white/70 bg-white/58 text-[#242332] hover:bg-white",
             )}
           >
             {labels?.[item] ?? item}

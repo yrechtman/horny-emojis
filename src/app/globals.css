@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #00b8ff;
-  --foreground: #050505;
+  --background: #9d7c8b;
+  --foreground: #f7f4fb;
 }
 
 @theme inline {
@@ -14,8 +14,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0800ff;
-    --foreground: #fff7f7;
+    --background: #4d354a;
+    --foreground: #f7f4fb;
   }
 }
 
@@ -31,16 +31,87 @@ input {
 }
 
 ::selection {
-  background: #fff200;
-  color: #050505;
+  background: #7fdfff;
+  color: #11131f;
 }
 
-@keyframes ticker {
-  from {
-    transform: translateX(0);
-  }
+.soft-focus-bg {
+  position: fixed;
+  inset: -6%;
+  background:
+    radial-gradient(circle at 72% 14%, rgba(241, 187, 108, 0.72), transparent 30%),
+    radial-gradient(circle at 42% 22%, rgba(248, 207, 226, 0.76), transparent 28%),
+    radial-gradient(circle at 18% 46%, rgba(129, 89, 113, 0.78), transparent 36%),
+    radial-gradient(circle at 70% 76%, rgba(72, 41, 56, 0.82), transparent 40%),
+    linear-gradient(140deg, #b88796 0%, #6e4c65 42%, #17101b 100%);
+  filter: blur(10px) saturate(1.08);
+  transform: scale(1.04);
+}
 
-  to {
-    transform: translateX(-50%);
-  }
+.soft-focus-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.07) 50%, rgba(0, 0, 0, 0.05) 50%),
+    radial-gradient(circle at 58% 24%, rgba(255, 255, 255, 0.16), transparent 18%);
+  background-size: 100% 4px, auto;
+  mix-blend-mode: soft-light;
+}
+
+.aqua-menubar {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(218, 225, 234, 0.74) 48%, rgba(162, 171, 184, 0.76) 52%, rgba(238, 243, 250, 0.82)),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.16) 0 1px, rgba(0, 0, 0, 0.04) 1px 2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 18px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(16px);
+}
+
+.aqua-button {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0 8%, rgba(182, 223, 255, 0.96) 9% 34%, rgba(24, 161, 220, 0.98) 35%, rgba(42, 190, 230, 1) 72%, rgba(67, 210, 236, 1) 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -4px 10px rgba(0, 80, 140, 0.18),
+    0 18px 38px rgba(0, 0, 0, 0.36);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.36);
+}
+
+.aqua-button::before {
+  content: "";
+  position: absolute;
+  inset: 5px 30px auto;
+  height: 44%;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.24));
+  pointer-events: none;
+}
+
+.aqua-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.aqua-mini-button {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.86), rgba(147, 210, 248, 0.9) 32%, rgba(22, 153, 215, 0.98) 33%, rgba(45, 190, 232, 1));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 5px rgba(0, 77, 138, 0.22),
+    0 6px 14px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32);
+}
+
+.mac-window {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.64), rgba(225, 228, 238, 0.48)),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.22) 0 1px, rgba(0, 0, 0, 0.035) 1px 3px);
+}
+
+.mac-titlebar {
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.86), rgba(222, 226, 235, 0.8) 45%, rgba(184, 190, 202, 0.78) 50%, rgba(235, 239, 246, 0.82)),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.26) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px);
 }

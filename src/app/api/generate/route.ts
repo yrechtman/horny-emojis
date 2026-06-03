@@ -128,7 +128,7 @@ function normalizePayload(raw: unknown): GenerateRequest {
     Object.values(payload.fields).some(Boolean);
 
   if (!hasInput) {
-    throw new Error("Add event details or a draft first.");
+    throw new Error("Add a context dump first.");
   }
 
   return payload;
@@ -171,7 +171,7 @@ function buildUserPrompt(payload: GenerateRequest) {
     "Event details:",
     formatDetails(payload.fields),
     "",
-    "User draft:",
+    "Context dump / rough notes:",
     payload.draft || "[none]",
     "",
     "Current output to revise:",

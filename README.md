@@ -1,6 +1,6 @@
-# Horny Emoji Group Text Generator
+# Hornify
 
-A small Next.js app for turning event details, inside jokes, and draft lines into chaotic emoji-heavy group texts.
+A small Next.js app for turning a messy context dump into chaotic emoji-heavy group texts.
 
 ## Public repo, private corpus
 

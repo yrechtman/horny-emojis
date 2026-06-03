@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Horny Emoji Group Text Generator",
+  title: "Hornify",
   description: "A private-corpus group text writing tool.",
 };
 

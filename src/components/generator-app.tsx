@@ -13,8 +13,6 @@ import {
 import { type ComponentType, type SVGProps, useState } from "react";
 
 import {
-  INTENSITIES,
-  LENGTHS,
   MODES,
   type GenerateRequest,
   type GenerateResponse,
@@ -44,6 +42,9 @@ const modeLabels: Record<Mode, string> = {
   variants: "4 Takes",
 };
 
+const DEFAULT_INTENSITY: Intensity = "unhinged";
+const DEFAULT_LENGTH: Length = "medium";
+
 const iterationActions: Array<{
   label: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -56,16 +57,22 @@ const iterationActions: Array<{
       "Revise the current output to be hornier, more pun-dense, and more committed while keeping the logistics intact.",
   },
   {
+    label: "Tamer",
+    icon: Sparkles,
+    request:
+      "Revise the current output to be a little tamer and cleaner while keeping the chaotic group-chat voice.",
+  },
+  {
     label: "Shorter",
     icon: Scissors,
     request:
       "Revise the current output to be shorter and tighter while preserving the best jokes.",
   },
   {
-    label: "Gloss",
-    icon: Sparkles,
+    label: "Longer",
+    icon: MessageSquareText,
     request:
-      "Revise the current output with more emojis, more visual rhythm, and more chaotic group-chat texture.",
+      "Revise the current output to be longer, more escalating, and richer with event-specific runs.",
   },
   {
     label: "Reroll",
@@ -82,8 +89,6 @@ function clsx(...classes: Array<string | false | null | undefined>) {
 export function GeneratorApp() {
   const [contextDump, setContextDump] = useState("");
   const [mode, setMode] = useState<Mode>("full");
-  const [intensity, setIntensity] = useState<Intensity>("unhinged");
-  const [length, setLength] = useState<Length>("medium");
   const [includeLogistics, setIncludeLogistics] = useState(true);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
@@ -97,8 +102,8 @@ export function GeneratorApp() {
 
     const payload: GenerateRequest = {
       mode,
-      intensity,
-      length,
+      intensity: DEFAULT_INTENSITY,
+      length: DEFAULT_LENGTH,
       includeLogistics,
       fields: emptyFields,
       draft: contextDump,
@@ -192,26 +197,14 @@ things to avoid`}
                 className="min-h-[390px] flex-1 resize-y rounded-b-[18px] border-x border-b border-black/20 bg-white/82 p-5 font-mono text-base leading-7 text-[#191924] shadow-[inset_0_2px_18px_rgba(40,25,50,.16)] outline-none placeholder:text-[#5d6474]/70 focus:bg-white focus:ring-4 focus:ring-[#28b7f7]/35"
               />
 
-              <div className="mt-4 grid gap-4 rounded-[20px] border border-white/60 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] backdrop-blur-xl">
-                <div className="grid gap-3 lg:grid-cols-[1.2fr_1fr_1fr]">
+              <div className="mt-4 grid gap-4 rounded-[20px] border border-white/60 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] backdrop-blur-xl sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                <div className="max-w-md">
                   <PillGroup
                     active={mode}
                     items={MODES}
                     labels={modeLabels}
-                    title="Mode"
+                    title="Format"
                     onChange={setMode}
-                  />
-                  <PillGroup
-                    active={intensity}
-                    items={INTENSITIES}
-                    title="Heat"
-                    onChange={setIntensity}
-                  />
-                  <PillGroup
-                    active={length}
-                    items={LENGTHS}
-                    title="Size"
-                    onChange={setLength}
                   />
                 </div>
 
@@ -238,7 +231,7 @@ things to avoid`}
                   <Clipboard className="size-4" aria-hidden="true" />
                   {copied ? "Copied" : "Copy"}
                 </button>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
                   {iterationActions.map((action) => {
                     const Icon = action.icon;
 
